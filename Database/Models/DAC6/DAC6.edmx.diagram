@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8b5b49b8515f42be8e3252f4026fb7ba" Name="Diagram1">
+        <EntityTypeShape EntityType="DAC6Model.DAC6Modules" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="DAC6Model.DAC6UsersModules" Width="1.5" PointX="3" PointY="0.875" />
+        <AssociationConnector Association="DAC6Model.FK_UsersModules_Modules" />
+        <EntityTypeShape EntityType="DAC6Model.LevelPermission" Width="1.5" PointX="0.75" PointY="3.875" />
+        <EntityTypeShape EntityType="DAC6Model.UserLevelPermission" Width="1.5" PointX="3" PointY="4" />
+        <AssociationConnector Association="DAC6Model.FK_UserLevelPermission_LevelPermission" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

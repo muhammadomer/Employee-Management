@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="57b08d6759a44af59e3476aabb46255b" Name="Diagram1">
+        <EntityTypeShape EntityType="MitigateModel.Boards" Width="1.5" PointX="5.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MitigateModel.Permissions" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MitigateModel.UserBoards" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MitigateModel.UserPermissions" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <AssociationConnector Association="MitigateModel.FK_UserBoards_Boards" ManuallyRouted="false" />
+        <AssociationConnector Association="MitigateModel.FK_UserPermissions_Permissions" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MitigateModel.UsersLevelPermissions" Width="1.5" PointX="7.625" PointY="5" />
+        <EntityTypeShape EntityType="MitigateModel.LevelPermissions" Width="1.5" PointX="5.375" PointY="4.75" />
+        <AssociationConnector Association="MitigateModel.FK_UsersLevelPermissions_LevelPermissions" />
+        <EntityTypeShape EntityType="MitigateModel.StaticBoards" Width="1.5" PointX="0.75" PointY="8.25" />
+        <EntityTypeShape EntityType="MitigateModel.StaticUserBoards" Width="1.5" PointX="3" PointY="8" />
+        <AssociationConnector Association="MitigateModel.FK_StaticUserBoards_StaticBoards" />
+        <EntityTypeShape EntityType="MitigateModel.Risks" Width="1.5" PointX="7.375" PointY="7.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

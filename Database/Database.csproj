@@ -1,0 +1,542 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1342B479-1BCE-4DE1-B569-32E0A6578C5D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Database</RootNamespace>
+    <AssemblyName>Database</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Base32">
+      <HintPath>..\EmployeeManagement\bin\Base32.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\OldProjects\Mitigate 3.0\Mitigate\Mitigate\bin\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="LogApp">
+      <HintPath>E:\Mitigate 3.0\Mitigate\Mitigate\bin\LogApp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.2\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.2\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.6.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.6.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.6.0.0\lib\net461\Microsoft.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\lib\net461\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.6.0.0\lib\net461\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.6.0.0\lib\net461\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.2.2\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.2.2\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.2.2\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.2.2\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.2.2\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="OtpSharp">
+      <HintPath>..\EmployeeManagement\bin\OtpSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=106.11.4.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.11.4\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.6.0.0\lib\net461\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cryptography\Cryptography.cs" />
+    <Compile Include="DAL\BaseDAL.cs" />
+    <Compile Include="DAL\GeneralUtilities.cs" />
+    <Compile Include="DAL\LocationDAL.cs" />
+    <Compile Include="DAL\Security.cs" />
+    <Compile Include="DAL\SettingsDAL.cs" />
+    <Compile Include="DAL\UserDAL.cs" />
+    <Compile Include="Entities\ApplicationEntity.cs" />
+    <Compile Include="Entities\LoggedinUserDetail.cs" />
+    <Compile Include="Entities\OfficeEntity.cs" />
+    <Compile Include="Entities\PermissionEntity.cs" />
+    <Compile Include="Entities\RegionEntity.cs" />
+    <Compile Include="Entities\ResetPasswordEntity.cs" />
+    <Compile Include="Entities\RiskControlsWithTaskEntity.cs" />
+    <Compile Include="Entities\RiskControlTasksEntity.cs" />
+    <Compile Include="Entities\RisksWithReviewStatusAndStatesEntity.cs" />
+    <Compile Include="Entities\SmtpSettingsEntity.cs" />
+    <Compile Include="Entities\UserEntity.cs" />
+    <Compile Include="Entities\Users.custom.cs" />
+    <Compile Include="Models\BusinessCard\BusinessCardModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BusinessCardModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BusinessCard\BusinessCardModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BusinessCardModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BusinessCard\BusinessCardModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BusinessCardModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BusinessCard\Modules.cs">
+      <DependentUpon>BusinessCardModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BusinessCard\UsersModules.cs">
+      <DependentUpon>BusinessCardModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAC6\DAC6.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DAC6.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAC6\DAC6.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DAC6.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAC6\DAC6.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DAC6.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAC6\DAC6Modules.cs">
+      <DependentUpon>DAC6.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAC6\DAC6UsersModules.cs">
+      <DependentUpon>DAC6.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAC6\LevelPermission.cs">
+      <DependentUpon>DAC6.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAC6\UserLevelPermission.cs">
+      <DependentUpon>DAC6.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeManagement\Applications.cs">
+      <DependentUpon>EmployeeManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeManagement\Cities.cs">
+      <DependentUpon>EmployeeManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeManagement\Countries.cs">
+      <DependentUpon>EmployeeManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeManagement\Country.cs">
+      <DependentUpon>EmployeeManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeManagement\DentonsEmployeesSettings.cs">
+      <DependentUpon>EmployeeManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeManagement\Departments.cs">
+      <DependentUpon>EmployeeManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeManagement\EmployeeManagementModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EmployeeManagementModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeManagement\EmployeeManagementModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EmployeeManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeManagement\EmployeeManagementModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EmployeeManagementModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeManagement\GetAllUserApplications_Result.cs">
+      <DependentUpon>EmployeeManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeManagement\Location.cs">
+      <DependentUpon>EmployeeManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeManagement\PracticeGroups.cs">
+      <DependentUpon>EmployeeManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeManagement\Regions.cs">
+      <DependentUpon>EmployeeManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeManagement\Users.cs">
+      <DependentUpon>EmployeeManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeManagement\UsersApplications.cs">
+      <DependentUpon>EmployeeManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeManagement\UserTypes.cs">
+      <DependentUpon>EmployeeManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FileManagement\FileManagementModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FileManagementModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FileManagement\FileManagementModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FileManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FileManagement\FileManagementModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FileManagementModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FileManagement\FilesCategory.cs">
+      <DependentUpon>FileManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FileManagement\GetAllApprovalsFiles_Result.cs">
+      <DependentUpon>FileManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FileManagement\GetAllFileActionsLog_Result.cs">
+      <DependentUpon>FileManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FileManagement\GetAllInboxFiles_Result.cs">
+      <DependentUpon>FileManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FileManagement\GetAllReminderDatesOnUserID_Result.cs">
+      <DependentUpon>FileManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FileManagement\GetAllRepositoryFiles_Result.cs">
+      <DependentUpon>FileManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FileManagement\GetAllUserListHaveFileAccess_Result.cs">
+      <DependentUpon>FileManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FileManagement\GetAllUsersForFileApproval_Result.cs">
+      <DependentUpon>FileManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FileManagement\GetFileInfoOnFileID_Result.cs">
+      <DependentUpon>FileManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FileManagement\GetSecionFieldsAndValues_Result.cs">
+      <DependentUpon>FileManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FileManagement\Modules.cs">
+      <DependentUpon>FileManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FileManagement\RepositoryPermissions.cs">
+      <DependentUpon>FileManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FileManagement\UserFilesPermissions.cs">
+      <DependentUpon>FileManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FileManagement\UsersModules.cs">
+      <DependentUpon>FileManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FileManagement\UsersRepositoryPermissions.cs">
+      <DependentUpon>FileManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Mitigate\Boards.cs">
+      <DependentUpon>DentonsMitigateModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Mitigate\DentonsMitigateModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DentonsMitigateModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Mitigate\DentonsMitigateModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DentonsMitigateModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Mitigate\DentonsMitigateModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DentonsMitigateModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Mitigate\LevelPermissions.cs">
+      <DependentUpon>DentonsMitigateModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Mitigate\Permissions.cs">
+      <DependentUpon>DentonsMitigateModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Mitigate\StaticBoards.cs">
+      <DependentUpon>DentonsMitigateModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Mitigate\StaticUserBoards.cs">
+      <DependentUpon>DentonsMitigateModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Mitigate\UserBoards.cs">
+      <DependentUpon>DentonsMitigateModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Mitigate\UserPermissions.cs">
+      <DependentUpon>DentonsMitigateModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Mitigate\UsersLevelPermissions.cs">
+      <DependentUpon>DentonsMitigateModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SinglePointCloud\Accounts.cs">
+      <DependentUpon>SinglePointCloudModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SinglePointCloud\ActivityLog.cs">
+      <DependentUpon>SinglePointCloudModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SinglePointCloud\Setting.cs">
+      <DependentUpon>SinglePointCloudModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SinglePointCloud\SinglePointCloudModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SinglePointCloudModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SinglePointCloud\SinglePointCloudModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SinglePointCloudModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SinglePointCloud\SinglePointCloudModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SinglePointCloudModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SinglePointCloud\User.cs">
+      <DependentUpon>SinglePointCloudModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SinglePointCloud\vw_GetActivityLog.cs">
+      <DependentUpon>SinglePointCloudModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TwoFactorDAL\classes\auth\ApplicationSignInManager.cs" />
+    <Compile Include="TwoFactorDAL\classes\auth\ApplicationUserManager.cs" />
+    <Compile Include="TwoFactorDAL\classes\auth\GoogleAuthenticatorTokenProvider.cs" />
+    <Compile Include="TwoFactorDAL\classes\auth\Startup.Auth.cs" />
+    <Compile Include="TwoFactorDAL\classes\auth\Startup.Owin.cs" />
+    <Compile Include="TwoFactorDAL\classes\models\ApplicationDbContext.cs" />
+    <Compile Include="TwoFactorDAL\classes\models\ApplicationUser.cs" />
+    <Compile Include="TwoFactorDAL\classes\viewmodels\AccountViewModels.cs" />
+    <Compile Include="TwoFactorDAL\classes\viewmodels\ManageViewModels.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Models\BusinessCard\BusinessCardModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BusinessCardModel.edmx</DependentUpon>
+      <LastGenOutput>BusinessCardModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\BusinessCard\BusinessCardModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BusinessCardModel.edmx</DependentUpon>
+      <LastGenOutput>BusinessCardModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DAC6\DAC6.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DAC6.edmx</DependentUpon>
+      <LastGenOutput>DAC6.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DAC6\DAC6.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DAC6.edmx</DependentUpon>
+      <LastGenOutput>DAC6.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\EmployeeManagement\EmployeeManagementModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EmployeeManagementModel.edmx</DependentUpon>
+      <LastGenOutput>EmployeeManagementModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\EmployeeManagement\EmployeeManagementModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EmployeeManagementModel.edmx</DependentUpon>
+      <LastGenOutput>EmployeeManagementModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\FileManagement\FileManagementModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FileManagementModel.edmx</DependentUpon>
+      <LastGenOutput>FileManagementModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\FileManagement\FileManagementModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FileManagementModel.edmx</DependentUpon>
+      <LastGenOutput>FileManagementModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Mitigate\DentonsMitigateModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DentonsMitigateModel.edmx</DependentUpon>
+      <LastGenOutput>DentonsMitigateModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Mitigate\DentonsMitigateModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DentonsMitigateModel.edmx</DependentUpon>
+      <LastGenOutput>DentonsMitigateModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\SinglePointCloud\SinglePointCloudModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SinglePointCloudModel.edmx</DependentUpon>
+      <LastGenOutput>SinglePointCloudModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\SinglePointCloud\SinglePointCloudModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SinglePointCloudModel.edmx</DependentUpon>
+      <LastGenOutput>SinglePointCloudModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="TwoFactorDAL\database-scripts\twofactor-database-tables.sql" />
+    <Content Include="TwoFactorDAL\readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="Models\BusinessCard\BusinessCardModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BusinessCardModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\BusinessCard\BusinessCardModel.edmx.diagram">
+      <DependentUpon>BusinessCardModel.edmx</DependentUpon>
+    </None>
+    <EntityDeploy Include="Models\DAC6\DAC6.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DAC6.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\DAC6\DAC6.edmx.diagram">
+      <DependentUpon>DAC6.edmx</DependentUpon>
+    </None>
+    <EntityDeploy Include="Models\FileManagement\FileManagementModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>FileManagementModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <EntityDeploy Include="Models\EmployeeManagement\EmployeeManagementModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EmployeeManagementModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\EmployeeManagement\EmployeeManagementModel.edmx.diagram">
+      <DependentUpon>EmployeeManagementModel.edmx</DependentUpon>
+    </None>
+    <None Include="Models\FileManagement\FileManagementModel.edmx.diagram">
+      <DependentUpon>FileManagementModel.edmx</DependentUpon>
+    </None>
+    <EntityDeploy Include="Models\Mitigate\DentonsMitigateModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DentonsMitigateModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\Mitigate\DentonsMitigateModel.edmx.diagram">
+      <DependentUpon>DentonsMitigateModel.edmx</DependentUpon>
+    </None>
+    <EntityDeploy Include="Models\SinglePointCloud\SinglePointCloudModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SinglePointCloudModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\SinglePointCloud\SinglePointCloudModel.edmx.diagram">
+      <DependentUpon>SinglePointCloudModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Secure\Secure.csproj">
+      <Project>{d090277e-cfe3-4ea2-a55f-c8b7b5f4f08c}</Project>
+      <Name>Secure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\build\Microsoft.Extensions.Logging.Abstractions.targets" Condition="Exists('..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\build\Microsoft.Extensions.Logging.Abstractions.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\build\Microsoft.Extensions.Logging.Abstractions.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\build\Microsoft.Extensions.Logging.Abstractions.targets'))" />
+  </Target>
+</Project>

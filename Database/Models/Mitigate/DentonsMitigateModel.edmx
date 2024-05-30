@@ -1,0 +1,430 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MitigateModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Boards">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BoardName" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LevelPermissions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Visible" Type="bit" Nullable="false" />
+          <Property Name="OrderId" Type="int" />
+        </EntityType>
+        <EntityType Name="Permissions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="20" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="Visible" Type="bit" />
+        </EntityType>
+        <EntityType Name="StaticBoards">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BoardName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ShowInMenu" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="StaticUserBoards">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User ID" Type="int" Nullable="false" />
+          <Property Name="Board ID" Type="int" Nullable="false" />
+          <Property Name="Add User ID" Type="int" />
+          <Property Name="Date Created" Type="datetime" />
+          <Property Name="Modified User ID" Type="int" />
+          <Property Name="Date Modified" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserBoards">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User ID" Type="int" Nullable="false" />
+          <Property Name="Board ID" Type="int" Nullable="false" />
+          <Property Name="Add User ID" Type="int" />
+          <Property Name="Date Created" Type="datetime" />
+          <Property Name="Modified User ID" Type="int" />
+          <Property Name="Date Modified" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserPermissions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User ID" Type="int" Nullable="false" />
+          <Property Name="Permission ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsersLevelPermissions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="LevelPermissionID" Type="int" />
+        </EntityType>
+        <Association Name="FK_StaticUserBoards_StaticBoards">
+          <End Role="StaticBoards" Type="Self.StaticBoards" Multiplicity="1" />
+          <End Role="StaticUserBoards" Type="Self.StaticUserBoards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StaticBoards">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="StaticUserBoards">
+              <PropertyRef Name="Board ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserBoards_Boards">
+          <End Role="Boards" Type="Self.Boards" Multiplicity="1" />
+          <End Role="UserBoards" Type="Self.UserBoards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boards">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserBoards">
+              <PropertyRef Name="Board ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPermissions_Permissions">
+          <End Role="Permissions" Type="Self.Permissions" Multiplicity="1" />
+          <End Role="UserPermissions" Type="Self.UserPermissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permissions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserPermissions">
+              <PropertyRef Name="Permission ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersLevelPermissions_LevelPermissions">
+          <End Role="LevelPermissions" Type="Self.LevelPermissions" Multiplicity="0..1" />
+          <End Role="UsersLevelPermissions" Type="Self.UsersLevelPermissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LevelPermissions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UsersLevelPermissions">
+              <PropertyRef Name="LevelPermissionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MitigateModelStoreContainer">
+          <EntitySet Name="Boards" EntityType="Self.Boards" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LevelPermissions" EntityType="Self.LevelPermissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permissions" EntityType="Self.Permissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StaticBoards" EntityType="Self.StaticBoards" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StaticUserBoards" EntityType="Self.StaticUserBoards" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserBoards" EntityType="Self.UserBoards" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserPermissions" EntityType="Self.UserPermissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsersLevelPermissions" EntityType="Self.UsersLevelPermissions" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_StaticUserBoards_StaticBoards" Association="Self.FK_StaticUserBoards_StaticBoards">
+            <End Role="StaticBoards" EntitySet="StaticBoards" />
+            <End Role="StaticUserBoards" EntitySet="StaticUserBoards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserBoards_Boards" Association="Self.FK_UserBoards_Boards">
+            <End Role="Boards" EntitySet="Boards" />
+            <End Role="UserBoards" EntitySet="UserBoards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPermissions_Permissions" Association="Self.FK_UserPermissions_Permissions">
+            <End Role="Permissions" EntitySet="Permissions" />
+            <End Role="UserPermissions" EntitySet="UserPermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersLevelPermissions_LevelPermissions" Association="Self.FK_UsersLevelPermissions_LevelPermissions">
+            <End Role="LevelPermissions" EntitySet="LevelPermissions" />
+            <End Role="UsersLevelPermissions" EntitySet="UsersLevelPermissions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MitigateModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Boards">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BoardName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="UserBoards" Relationship="Self.FK_UserBoards_Boards" FromRole="Boards" ToRole="UserBoards" />
+        </EntityType>
+        <EntityType Name="Permissions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Visible" Type="Boolean" />
+          <NavigationProperty Name="UserPermissions" Relationship="Self.FK_UserPermissions_Permissions" FromRole="Permissions" ToRole="UserPermissions" />
+        </EntityType>
+        <EntityType Name="UserBoards">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="Board_ID" Type="Int32" Nullable="false" />
+          <Property Name="Add_User_ID" Type="Int32" />
+          <Property Name="Date_Created" Type="DateTime" Precision="3" />
+          <Property Name="Modified_User_ID" Type="Int32" />
+          <Property Name="Date_Modified" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Boards" Relationship="Self.FK_UserBoards_Boards" FromRole="UserBoards" ToRole="Boards" />
+        </EntityType>
+        <EntityType Name="UserPermissions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="Permission_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Permissions" Relationship="Self.FK_UserPermissions_Permissions" FromRole="UserPermissions" ToRole="Permissions" />
+        </EntityType>
+        <Association Name="FK_UserBoards_Boards">
+          <End Role="Boards" Type="Self.Boards" Multiplicity="1" />
+          <End Role="UserBoards" Type="Self.UserBoards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boards">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserBoards">
+              <PropertyRef Name="Board_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPermissions_Permissions">
+          <End Role="Permissions" Type="Self.Permissions" Multiplicity="1" />
+          <End Role="UserPermissions" Type="Self.UserPermissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permissions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserPermissions">
+              <PropertyRef Name="Permission_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MitigateEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Boards" EntityType="Self.Boards" />
+          <EntitySet Name="Permissions" EntityType="Self.Permissions" />
+          <EntitySet Name="UserBoards" EntityType="Self.UserBoards" />
+          <EntitySet Name="UserPermissions" EntityType="Self.UserPermissions" />
+          <AssociationSet Name="FK_UserBoards_Boards" Association="Self.FK_UserBoards_Boards">
+            <End Role="Boards" EntitySet="Boards" />
+            <End Role="UserBoards" EntitySet="UserBoards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPermissions_Permissions" Association="Self.FK_UserPermissions_Permissions">
+            <End Role="Permissions" EntitySet="Permissions" />
+            <End Role="UserPermissions" EntitySet="UserPermissions" />
+          </AssociationSet>
+          <EntitySet Name="UsersLevelPermissions" EntityType="MitigateModel.UsersLevelPermissions" />
+          <EntitySet Name="LevelPermissions" EntityType="MitigateModel.LevelPermissions" />
+          <AssociationSet Name="FK_UsersLevelPermissions_LevelPermissions" Association="MitigateModel.FK_UsersLevelPermissions_LevelPermissions">
+            <End Role="LevelPermissions" EntitySet="LevelPermissions" />
+            <End Role="UsersLevelPermissions" EntitySet="UsersLevelPermissions" />
+          </AssociationSet>
+          <EntitySet Name="StaticBoards" EntityType="MitigateModel.StaticBoards" />
+          <EntitySet Name="StaticUserBoards" EntityType="MitigateModel.StaticUserBoards" />
+          <AssociationSet Name="FK_StaticUserBoards_StaticBoards" Association="MitigateModel.FK_StaticUserBoards_StaticBoards">
+            <End Role="StaticBoards" EntitySet="StaticBoards" />
+            <End Role="StaticUserBoards" EntitySet="StaticUserBoards" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="UsersLevelPermissions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="LevelPermissionID" Type="Int32" />
+          <NavigationProperty Name="LevelPermissions" Relationship="MitigateModel.FK_UsersLevelPermissions_LevelPermissions" FromRole="UsersLevelPermissions" ToRole="LevelPermissions" />
+        </EntityType>
+        <EntityType Name="LevelPermissions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Visible" Type="Boolean" Nullable="false" />
+          <Property Name="OrderId" Type="Int32" />
+          <NavigationProperty Name="UsersLevelPermissions" Relationship="MitigateModel.FK_UsersLevelPermissions_LevelPermissions" FromRole="LevelPermissions" ToRole="UsersLevelPermissions" />
+        </EntityType>
+        <Association Name="FK_UsersLevelPermissions_LevelPermissions">
+          <End Type="MitigateModel.LevelPermissions" Role="LevelPermissions" Multiplicity="0..1" />
+          <End Type="MitigateModel.UsersLevelPermissions" Role="UsersLevelPermissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LevelPermissions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UsersLevelPermissions">
+              <PropertyRef Name="LevelPermissionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="StaticBoards">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BoardName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ShowInMenu" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="StaticUserBoards" Relationship="MitigateModel.FK_StaticUserBoards_StaticBoards" FromRole="StaticBoards" ToRole="StaticUserBoards" />
+        </EntityType>
+        <EntityType Name="StaticUserBoards">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="Board_ID" Type="Int32" Nullable="false" />
+          <Property Name="Add_User_ID" Type="Int32" />
+          <Property Name="Date_Created" Type="DateTime" Precision="3" />
+          <Property Name="Modified_User_ID" Type="Int32" />
+          <Property Name="Date_Modified" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="StaticBoards" Relationship="MitigateModel.FK_StaticUserBoards_StaticBoards" FromRole="StaticUserBoards" ToRole="StaticBoards" />
+        </EntityType>
+        <Association Name="FK_StaticUserBoards_StaticBoards">
+          <End Type="MitigateModel.StaticBoards" Role="StaticBoards" Multiplicity="1" />
+          <End Type="MitigateModel.StaticUserBoards" Role="StaticUserBoards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StaticBoards">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="StaticUserBoards">
+              <PropertyRef Name="Board_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MitigateModelStoreContainer" CdmEntityContainer="MitigateEntities">
+          <EntitySetMapping Name="Boards">
+            <EntityTypeMapping TypeName="MitigateModel.Boards">
+              <MappingFragment StoreEntitySet="Boards">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="BoardName" ColumnName="BoardName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permissions">
+            <EntityTypeMapping TypeName="MitigateModel.Permissions">
+              <MappingFragment StoreEntitySet="Permissions">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Visible" ColumnName="Visible" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserBoards">
+            <EntityTypeMapping TypeName="MitigateModel.UserBoards">
+              <MappingFragment StoreEntitySet="UserBoards">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="User_ID" ColumnName="User ID" />
+                <ScalarProperty Name="Board_ID" ColumnName="Board ID" />
+                <ScalarProperty Name="Add_User_ID" ColumnName="Add User ID" />
+                <ScalarProperty Name="Date_Created" ColumnName="Date Created" />
+                <ScalarProperty Name="Modified_User_ID" ColumnName="Modified User ID" />
+                <ScalarProperty Name="Date_Modified" ColumnName="Date Modified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserPermissions">
+            <EntityTypeMapping TypeName="MitigateModel.UserPermissions">
+              <MappingFragment StoreEntitySet="UserPermissions">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="User_ID" ColumnName="User ID" />
+                <ScalarProperty Name="Permission_ID" ColumnName="Permission ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsersLevelPermissions">
+            <EntityTypeMapping TypeName="MitigateModel.UsersLevelPermissions">
+              <MappingFragment StoreEntitySet="UsersLevelPermissions">
+                <ScalarProperty Name="LevelPermissionID" ColumnName="LevelPermissionID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LevelPermissions">
+            <EntityTypeMapping TypeName="MitigateModel.LevelPermissions">
+              <MappingFragment StoreEntitySet="LevelPermissions">
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="Visible" ColumnName="Visible" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StaticBoards">
+            <EntityTypeMapping TypeName="MitigateModel.StaticBoards">
+              <MappingFragment StoreEntitySet="StaticBoards">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ShowInMenu" ColumnName="ShowInMenu" />
+                <ScalarProperty Name="BoardName" ColumnName="BoardName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StaticUserBoards">
+            <EntityTypeMapping TypeName="MitigateModel.StaticUserBoards">
+              <MappingFragment StoreEntitySet="StaticUserBoards">
+                <ScalarProperty Name="Date_Modified" ColumnName="Date Modified" />
+                <ScalarProperty Name="Modified_User_ID" ColumnName="Modified User ID" />
+                <ScalarProperty Name="Date_Created" ColumnName="Date Created" />
+                <ScalarProperty Name="Add_User_ID" ColumnName="Add User ID" />
+                <ScalarProperty Name="Board_ID" ColumnName="Board ID" />
+                <ScalarProperty Name="User_ID" ColumnName="User ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

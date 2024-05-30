@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="30767d9c0bfe468aac86df0281ecee93" Name="Diagram1">
+        <EntityTypeShape EntityType="FileManagementModel.FilesCategory" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="FileManagementModel.Modules" Width="1.5" PointX="0.75" PointY="4" />
+        <EntityTypeShape EntityType="FileManagementModel.RepositoryPermissions" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="FileManagementModel.UserFilesPermissions" Width="1.5" PointX="5.75" PointY="3.75" />
+        <EntityTypeShape EntityType="FileManagementModel.UsersModules" Width="1.5" PointX="3" PointY="3.875" />
+        <EntityTypeShape EntityType="FileManagementModel.UsersRepositoryPermissions" Width="1.5" PointX="3" PointY="0.875" />
+        <AssociationConnector Association="FileManagementModel.FK_UserModulePermissions_ModulePermissions" />
+        <AssociationConnector Association="FileManagementModel.FK_UserRepositoryPermissions_RepositoryPermissions" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

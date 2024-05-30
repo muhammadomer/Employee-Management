@@ -1,0 +1,737 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FileManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="FilesCategory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="File Category Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsArchive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Modules">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Permission Name" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="RepositoryPermissions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Repository Name" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="UserFilesPermissions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User ID" Type="int" Nullable="false" />
+          <Property Name="File Category ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsersModules">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User ID" Type="int" Nullable="false" />
+          <Property Name="Permission ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsersRepositoryPermissions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User ID" Type="int" Nullable="false" />
+          <Property Name="Repository ID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_UserModulePermissions_ModulePermissions">
+          <End Role="Modules" Type="Self.Modules" Multiplicity="1" />
+          <End Role="UsersModules" Type="Self.UsersModules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modules">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UsersModules">
+              <PropertyRef Name="Permission ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRepositoryPermissions_RepositoryPermissions">
+          <End Role="RepositoryPermissions" Type="Self.RepositoryPermissions" Multiplicity="1" />
+          <End Role="UsersRepositoryPermissions" Type="Self.UsersRepositoryPermissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RepositoryPermissions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UsersRepositoryPermissions">
+              <PropertyRef Name="Repository ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetAllApprovalsFiles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetAllFileActionsLog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllInboxFiles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetAllReminderDatesOnUserID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="StartDate" Type="datetime" Mode="In" />
+          <Parameter Name="EndDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="GetAllRepositoryFiles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetAllUserListHaveFileAccess" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fileId" Type="int" Mode="In" />
+          <Parameter Name="fileCategoryId" Type="int" Mode="In" />
+          <Parameter Name="userId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetAllUsersForFileApproval" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fileId" Type="int" Mode="In" />
+          <Parameter Name="fileCategoryId" Type="int" Mode="In" />
+          <Parameter Name="userId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetFileInfoOnFileID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FileID" Type="int" Mode="In" />
+          <Parameter Name="userID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetSecionFieldsAndValues" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FileID" Type="int" Mode="In" />
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="FileManagementModelStoreContainer">
+          <EntitySet Name="FilesCategory" EntityType="Self.FilesCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Modules" EntityType="Self.Modules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RepositoryPermissions" EntityType="Self.RepositoryPermissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserFilesPermissions" EntityType="Self.UserFilesPermissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsersModules" EntityType="Self.UsersModules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsersRepositoryPermissions" EntityType="Self.UsersRepositoryPermissions" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_UserModulePermissions_ModulePermissions" Association="Self.FK_UserModulePermissions_ModulePermissions">
+            <End Role="Modules" EntitySet="Modules" />
+            <End Role="UsersModules" EntitySet="UsersModules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRepositoryPermissions_RepositoryPermissions" Association="Self.FK_UserRepositoryPermissions_RepositoryPermissions">
+            <End Role="RepositoryPermissions" EntitySet="RepositoryPermissions" />
+            <End Role="UsersRepositoryPermissions" EntitySet="UsersRepositoryPermissions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FileManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="FileManagementEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="GetAllApprovalsFiles" ReturnType="Collection(FileManagementModel.GetAllApprovalsFiles_Result)">
+          <Parameter Name="UserID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllFileActionsLog" ReturnType="Collection(FileManagementModel.GetAllFileActionsLog_Result)" />
+          <FunctionImport Name="GetAllInboxFiles" ReturnType="Collection(FileManagementModel.GetAllInboxFiles_Result)">
+          <Parameter Name="UserID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllReminderDatesOnUserID" ReturnType="Collection(FileManagementModel.GetAllReminderDatesOnUserID_Result)">
+            <Parameter Name="UserID" Mode="In" Type="Int32" />
+            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllRepositoryFiles" ReturnType="Collection(FileManagementModel.GetAllRepositoryFiles_Result)">
+          <Parameter Name="UserID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllUserListHaveFileAccess" ReturnType="Collection(FileManagementModel.GetAllUserListHaveFileAccess_Result)">
+            <Parameter Name="fileId" Mode="In" Type="Int32" />
+            <Parameter Name="fileCategoryId" Mode="In" Type="Int32" />
+            <Parameter Name="userId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllUsersForFileApproval" ReturnType="Collection(FileManagementModel.GetAllUsersForFileApproval_Result)">
+            <Parameter Name="fileId" Mode="In" Type="Int32" />
+            <Parameter Name="fileCategoryId" Mode="In" Type="Int32" />
+            <Parameter Name="userId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetFileInfoOnFileID" ReturnType="Collection(FileManagementModel.GetFileInfoOnFileID_Result)">
+            <Parameter Name="FileID" Mode="In" Type="Int32" />
+            <Parameter Name="userID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetSecionFieldsAndValues" ReturnType="Collection(FileManagementModel.GetSecionFieldsAndValues_Result)">
+            <Parameter Name="FileID" Mode="In" Type="Int32" />
+            <Parameter Name="UserID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="FilesCategory" EntityType="FileManagementModel.FilesCategory" />
+          <EntitySet Name="Modules" EntityType="FileManagementModel.Modules" />
+          <EntitySet Name="RepositoryPermissions" EntityType="FileManagementModel.RepositoryPermissions" />
+          <EntitySet Name="UserFilesPermissions" EntityType="FileManagementModel.UserFilesPermissions" />
+          <EntitySet Name="UsersModules" EntityType="FileManagementModel.UsersModules" />
+          <EntitySet Name="UsersRepositoryPermissions" EntityType="FileManagementModel.UsersRepositoryPermissions" />
+          <AssociationSet Name="FK_UserModulePermissions_ModulePermissions" Association="FileManagementModel.FK_UserModulePermissions_ModulePermissions">
+            <End Role="Modules" EntitySet="Modules" />
+            <End Role="UsersModules" EntitySet="UsersModules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRepositoryPermissions_RepositoryPermissions" Association="FileManagementModel.FK_UserRepositoryPermissions_RepositoryPermissions">
+            <End Role="RepositoryPermissions" EntitySet="RepositoryPermissions" />
+            <End Role="UsersRepositoryPermissions" EntitySet="UsersRepositoryPermissions" />
+          </AssociationSet>
+        </EntityContainer>
+        <ComplexType Name="GetAllApprovalsFiles_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="File_ID" Nullable="true" MaxLength="250" />
+          <Property Type="Boolean" Name="Checked_In" Nullable="true" />
+          <Property Type="Int32" Name="Checked_In_User_ID" Nullable="true" />
+          <Property Type="String" Name="File_Category_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Path" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="User_ID" Nullable="true" />
+          <Property Type="String" Name="Date_Created" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="250" />
+          <Property Type="Boolean" Name="Reviewed" Nullable="true" />
+          <Property Type="String" Name="Reason" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="GetAllFileActionsLog_Result">
+          <Property Type="Int32" Name="ID" Nullable="true" />
+          <Property Type="String" Name="USER_PROFILE" Nullable="false" MaxLength="501" />
+          <Property Type="String" Name="ACTION" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="DATE" Nullable="false" Precision="23" />
+          <Property Type="String" Name="FILE_ID" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="FILE_TITLE" Nullable="true" MaxLength="250" />
+          <Property Type="Boolean" Name="IsArchive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAllInboxFiles_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="File_ID" Nullable="true" MaxLength="250" />
+          <Property Type="Boolean" Name="Checked_In" Nullable="true" />
+          <Property Type="String" Name="Reason" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="Checked_In_User_ID" Nullable="true" />
+          <Property Type="Int32" Name="File_Category_ID" Nullable="true" />
+          <Property Type="String" Name="File_Category_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Path" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="User_ID" Nullable="true" />
+          <Property Type="String" Name="Date_Created" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="250" />
+          <Property Type="Boolean" Name="Opened" Nullable="true" />
+          <Property Type="Boolean" Name="Reviewed" Nullable="true" />
+          <Property Type="Boolean" Name="Pinned" Nullable="true" />
+          <Property Type="Boolean" Name="SentToUser" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAllReminderDatesOnUserID_Result">
+          <Property Type="Int32" Name="File_ID" Nullable="true" />
+          <Property Type="String" Name="File_Title" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="FieldName" Nullable="true" MaxLength="250" />
+          <Property Type="DateTime" Name="Date" Nullable="true" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="GetAllRepositoryFiles_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="File_ID" Nullable="true" MaxLength="250" />
+          <Property Type="Boolean" Name="Checked_In" Nullable="true" />
+          <Property Type="Int32" Name="Checked_In_User_ID" Nullable="true" />
+          <Property Type="String" Name="File_Category_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Path" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="User_ID" Nullable="true" />
+          <Property Type="String" Name="Date_Created" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="250" />
+          <Property Type="Boolean" Name="Reviewed" Nullable="true" />
+          <Property Type="String" Name="Expiry_Date" Nullable="true" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="GetAllUserListHaveFileAccess_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="First_Name" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Last_Name" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Contact_Number" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Job_Title" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Username" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="ProfileImage" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Office" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Region" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Department" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Direct_Number" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Mobile_Number" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Telephone" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Fax_Number" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Address_Line_1" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Address_Line_2" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="State" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="GPS_Postal" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Mail_Postal" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Country" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="UserTypeID" Nullable="false" />
+          <Property Type="Boolean" Name="Allow_Card" Nullable="true" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="true" Precision="23" />
+          <Property Type="String" Name="ResetHash" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="ResetRequestDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="LastPasswordChange" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="WrongPaswordAttempts" Nullable="false" />
+          <Property Type="String" Name="SecurityStamp" Nullable="true" />
+          <Property Type="Boolean" Name="TwoFactorEnabled" Nullable="false" />
+          <Property Type="DateTime" Name="LockoutEndDateUtc" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="LockoutEnabled" Nullable="true" />
+          <Property Type="String" Name="GoogleAuthenticatorSecretKey" Nullable="true" />
+          <Property Type="Boolean" Name="IsGoogleAuthenticatorEnabled" Nullable="false" />
+          <Property Type="String" Name="TwoFAEmailCode" Nullable="true" />
+          <Property Type="DateTime" Name="TwoFAEmailCodeDateTime" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="GetAllUsersForFileApproval_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="First_Name" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Last_Name" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Contact_Number" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Job_Title" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Username" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="ProfileImage" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Office" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Region" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Department" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Direct_Number" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Mobile_Number" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Telephone" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Fax_Number" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Address_Line_1" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Address_Line_2" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="State" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="GPS_Postal" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Mail_Postal" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Country" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="UserTypeID" Nullable="false" />
+          <Property Type="Boolean" Name="Allow_Card" Nullable="true" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="true" Precision="23" />
+          <Property Type="String" Name="ResetHash" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="ResetRequestDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="LastPasswordChange" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="WrongPaswordAttempts" Nullable="false" />
+          <Property Type="String" Name="SecurityStamp" Nullable="true" />
+          <Property Type="Boolean" Name="TwoFactorEnabled" Nullable="false" />
+          <Property Type="DateTime" Name="LockoutEndDateUtc" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="LockoutEnabled" Nullable="true" />
+          <Property Type="String" Name="GoogleAuthenticatorSecretKey" Nullable="true" />
+          <Property Type="Boolean" Name="IsGoogleAuthenticatorEnabled" Nullable="false" />
+          <Property Type="String" Name="TwoFAEmailCode" Nullable="true" />
+          <Property Type="DateTime" Name="TwoFAEmailCodeDateTime" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="GetFileInfoOnFileID_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="File_User_ID" Nullable="true" />
+          <Property Type="Int32" Name="File_Category_ID" Nullable="true" />
+          <Property Type="String" Name="Path" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="File_ID" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Date_Created" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Owner_Email" Nullable="true" MaxLength="250" />
+          <Property Type="Boolean" Name="User_Access_Public" Nullable="true" />
+          <Property Type="Int32" Name="User_ID" Nullable="true" />
+          <Property Type="Int32" Name="Status" Nullable="true" />
+          <Property Type="Int32" Name="Flag_ID" Nullable="true" />
+          <Property Type="String" Name="Expiry_Date" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="Expiry_Date_Reminder" Nullable="false" />
+          <Property Type="String" Name="Search_Tags" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="GetSecionFieldsAndValues_Result">
+          <Property Type="Int32" Name="ID" Nullable="true" />
+          <Property Type="Int32" Name="SectionID" Nullable="true" />
+          <Property Type="Int32" Name="ID1" Nullable="true" />
+          <Property Type="String" Name="File_Category_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Column1Title" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Column2Title" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="FieldName" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="FieldHint" Nullable="true" MaxLength="250" />
+          <Property Type="Boolean" Name="AlertEnable" Nullable="true" />
+          <Property Type="Int32" Name="ColumnNumber" Nullable="true" />
+          <Property Type="Int32" Name="Type_ID" Nullable="true" />
+          <Property Type="String" Name="Type_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="value" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="Date_Reminder" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="FilesCategory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="File_Category_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsArchive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Modules">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Permission_Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UsersModules" Relationship="FileManagementModel.FK_UserModulePermissions_ModulePermissions" FromRole="Modules" ToRole="UsersModules" />
+        </EntityType>
+        <EntityType Name="RepositoryPermissions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Repository_Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UsersRepositoryPermissions" Relationship="FileManagementModel.FK_UserRepositoryPermissions_RepositoryPermissions" FromRole="RepositoryPermissions" ToRole="UsersRepositoryPermissions" />
+        </EntityType>
+        <EntityType Name="UserFilesPermissions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="File_Category_ID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsersModules">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="Permission_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Modules" Relationship="FileManagementModel.FK_UserModulePermissions_ModulePermissions" FromRole="UsersModules" ToRole="Modules" />
+        </EntityType>
+        <EntityType Name="UsersRepositoryPermissions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="Repository_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="RepositoryPermissions" Relationship="FileManagementModel.FK_UserRepositoryPermissions_RepositoryPermissions" FromRole="UsersRepositoryPermissions" ToRole="RepositoryPermissions" />
+        </EntityType>
+        <Association Name="FK_UserModulePermissions_ModulePermissions">
+          <End Type="FileManagementModel.Modules" Role="Modules" Multiplicity="1" />
+          <End Type="FileManagementModel.UsersModules" Role="UsersModules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modules">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UsersModules">
+              <PropertyRef Name="Permission_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRepositoryPermissions_RepositoryPermissions">
+          <End Type="FileManagementModel.RepositoryPermissions" Role="RepositoryPermissions" Multiplicity="1" />
+          <End Type="FileManagementModel.UsersRepositoryPermissions" Role="UsersRepositoryPermissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RepositoryPermissions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UsersRepositoryPermissions">
+              <PropertyRef Name="Repository_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FileManagementModelStoreContainer" CdmEntityContainer="FileManagementEntities">
+          <FunctionImportMapping FunctionImportName="GetAllApprovalsFiles" FunctionName="FileManagementModel.Store.GetAllApprovalsFiles">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FileManagementModel.GetAllApprovalsFiles_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="File_ID" ColumnName="File ID" />
+                <ScalarProperty Name="Checked_In" ColumnName="Checked In" />
+                <ScalarProperty Name="Checked_In_User_ID" ColumnName="Checked In User ID" />
+                <ScalarProperty Name="File_Category_Name" ColumnName="File Category Name" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="User_ID" ColumnName="User ID" />
+                <ScalarProperty Name="Date_Created" ColumnName="Date Created" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Reviewed" ColumnName="Reviewed" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllFileActionsLog" FunctionName="FileManagementModel.Store.GetAllFileActionsLog">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FileManagementModel.GetAllFileActionsLog_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="USER_PROFILE" ColumnName="USER PROFILE" />
+                <ScalarProperty Name="ACTION" ColumnName="ACTION" />
+                <ScalarProperty Name="DATE" ColumnName="DATE" />
+                <ScalarProperty Name="FILE_ID" ColumnName="FILE ID" />
+                <ScalarProperty Name="FILE_TITLE" ColumnName="FILE TITLE" />
+                <ScalarProperty Name="IsArchive" ColumnName="IsArchive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllInboxFiles" FunctionName="FileManagementModel.Store.GetAllInboxFiles">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FileManagementModel.GetAllInboxFiles_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="File_ID" ColumnName="File ID" />
+                <ScalarProperty Name="Checked_In" ColumnName="Checked In" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="Checked_In_User_ID" ColumnName="Checked In User ID" />
+                <ScalarProperty Name="File_Category_ID" ColumnName="File Category ID" />
+                <ScalarProperty Name="File_Category_Name" ColumnName="File Category Name" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="User_ID" ColumnName="User ID" />
+                <ScalarProperty Name="Date_Created" ColumnName="Date Created" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Opened" ColumnName="Opened" />
+                <ScalarProperty Name="Reviewed" ColumnName="Reviewed" />
+                <ScalarProperty Name="Pinned" ColumnName="Pinned" />
+                <ScalarProperty Name="SentToUser" ColumnName="SentToUser" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllReminderDatesOnUserID" FunctionName="FileManagementModel.Store.GetAllReminderDatesOnUserID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FileManagementModel.GetAllReminderDatesOnUserID_Result">
+                <ScalarProperty Name="File_ID" ColumnName="File ID" />
+                <ScalarProperty Name="File_Title" ColumnName="File Title" />
+                <ScalarProperty Name="FieldName" ColumnName="FieldName" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllRepositoryFiles" FunctionName="FileManagementModel.Store.GetAllRepositoryFiles">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FileManagementModel.GetAllRepositoryFiles_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="File_ID" ColumnName="File ID" />
+                <ScalarProperty Name="Checked_In" ColumnName="Checked In" />
+                <ScalarProperty Name="Checked_In_User_ID" ColumnName="Checked In User ID" />
+                <ScalarProperty Name="File_Category_Name" ColumnName="File Category Name" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="User_ID" ColumnName="User ID" />
+                <ScalarProperty Name="Date_Created" ColumnName="Date Created" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Reviewed" ColumnName="Reviewed" />
+                <ScalarProperty Name="Expiry_Date" ColumnName="Expiry Date" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllUserListHaveFileAccess" FunctionName="FileManagementModel.Store.GetAllUserListHaveFileAccess">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FileManagementModel.GetAllUserListHaveFileAccess_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="First_Name" ColumnName="First Name" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Contact_Number" ColumnName="Contact Number" />
+                <ScalarProperty Name="Job_Title" ColumnName="Job Title" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ProfileImage" ColumnName="ProfileImage" />
+                <ScalarProperty Name="Office" ColumnName="Office" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="Direct_Number" ColumnName="Direct Number" />
+                <ScalarProperty Name="Mobile_Number" ColumnName="Mobile Number" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="Fax_Number" ColumnName="Fax Number" />
+                <ScalarProperty Name="Address_Line_1" ColumnName="Address Line 1" />
+                <ScalarProperty Name="Address_Line_2" ColumnName="Address Line 2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="GPS_Postal" ColumnName="GPS Postal" />
+                <ScalarProperty Name="Mail_Postal" ColumnName="Mail Postal" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
+                <ScalarProperty Name="Allow_Card" ColumnName="Allow Card" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="ResetHash" ColumnName="ResetHash" />
+                <ScalarProperty Name="ResetRequestDate" ColumnName="ResetRequestDate" />
+                <ScalarProperty Name="LastPasswordChange" ColumnName="LastPasswordChange" />
+                <ScalarProperty Name="WrongPaswordAttempts" ColumnName="WrongPaswordAttempts" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="GoogleAuthenticatorSecretKey" ColumnName="GoogleAuthenticatorSecretKey" />
+                <ScalarProperty Name="IsGoogleAuthenticatorEnabled" ColumnName="IsGoogleAuthenticatorEnabled" />
+                <ScalarProperty Name="TwoFAEmailCode" ColumnName="TwoFAEmailCode" />
+                <ScalarProperty Name="TwoFAEmailCodeDateTime" ColumnName="TwoFAEmailCodeDateTime" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllUsersForFileApproval" FunctionName="FileManagementModel.Store.GetAllUsersForFileApproval">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FileManagementModel.GetAllUsersForFileApproval_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="First_Name" ColumnName="First Name" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Contact_Number" ColumnName="Contact Number" />
+                <ScalarProperty Name="Job_Title" ColumnName="Job Title" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ProfileImage" ColumnName="ProfileImage" />
+                <ScalarProperty Name="Office" ColumnName="Office" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="Direct_Number" ColumnName="Direct Number" />
+                <ScalarProperty Name="Mobile_Number" ColumnName="Mobile Number" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="Fax_Number" ColumnName="Fax Number" />
+                <ScalarProperty Name="Address_Line_1" ColumnName="Address Line 1" />
+                <ScalarProperty Name="Address_Line_2" ColumnName="Address Line 2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="GPS_Postal" ColumnName="GPS Postal" />
+                <ScalarProperty Name="Mail_Postal" ColumnName="Mail Postal" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
+                <ScalarProperty Name="Allow_Card" ColumnName="Allow Card" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="ResetHash" ColumnName="ResetHash" />
+                <ScalarProperty Name="ResetRequestDate" ColumnName="ResetRequestDate" />
+                <ScalarProperty Name="LastPasswordChange" ColumnName="LastPasswordChange" />
+                <ScalarProperty Name="WrongPaswordAttempts" ColumnName="WrongPaswordAttempts" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="GoogleAuthenticatorSecretKey" ColumnName="GoogleAuthenticatorSecretKey" />
+                <ScalarProperty Name="IsGoogleAuthenticatorEnabled" ColumnName="IsGoogleAuthenticatorEnabled" />
+                <ScalarProperty Name="TwoFAEmailCode" ColumnName="TwoFAEmailCode" />
+                <ScalarProperty Name="TwoFAEmailCodeDateTime" ColumnName="TwoFAEmailCodeDateTime" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetFileInfoOnFileID" FunctionName="FileManagementModel.Store.GetFileInfoOnFileID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FileManagementModel.GetFileInfoOnFileID_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="File_User_ID" ColumnName="File User ID" />
+                <ScalarProperty Name="File_Category_ID" ColumnName="File Category ID" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="File_ID" ColumnName="File ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="Date_Created" ColumnName="Date Created" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Owner_Email" ColumnName="Owner Email" />
+                <ScalarProperty Name="User_Access_Public" ColumnName="User Access Public" />
+                <ScalarProperty Name="User_ID" ColumnName="User ID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Flag_ID" ColumnName="Flag ID" />
+                <ScalarProperty Name="Expiry_Date" ColumnName="Expiry Date" />
+                <ScalarProperty Name="Expiry_Date_Reminder" ColumnName="Expiry Date Reminder" />
+                <ScalarProperty Name="Search_Tags" ColumnName="Search Tags" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetSecionFieldsAndValues" FunctionName="FileManagementModel.Store.GetSecionFieldsAndValues">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FileManagementModel.GetSecionFieldsAndValues_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+                <ScalarProperty Name="ID1" ColumnName="ID1" />
+                <ScalarProperty Name="File_Category_Name" ColumnName="File Category Name" />
+                <ScalarProperty Name="Column1Title" ColumnName="Column1Title" />
+                <ScalarProperty Name="Column2Title" ColumnName="Column2Title" />
+                <ScalarProperty Name="FieldName" ColumnName="FieldName" />
+                <ScalarProperty Name="FieldHint" ColumnName="FieldHint" />
+                <ScalarProperty Name="AlertEnable" ColumnName="AlertEnable" />
+                <ScalarProperty Name="ColumnNumber" ColumnName="ColumnNumber" />
+                <ScalarProperty Name="Type_ID" ColumnName="Type ID" />
+                <ScalarProperty Name="Type_Name" ColumnName="Type Name" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="Date_Reminder" ColumnName="Date Reminder" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="FilesCategory">
+            <EntityTypeMapping TypeName="FileManagementModel.FilesCategory">
+              <MappingFragment StoreEntitySet="FilesCategory">
+                <ScalarProperty Name="IsArchive" ColumnName="IsArchive" />
+                <ScalarProperty Name="File_Category_Name" ColumnName="File Category Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Modules">
+            <EntityTypeMapping TypeName="FileManagementModel.Modules">
+              <MappingFragment StoreEntitySet="Modules">
+                <ScalarProperty Name="Permission_Name" ColumnName="Permission Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RepositoryPermissions">
+            <EntityTypeMapping TypeName="FileManagementModel.RepositoryPermissions">
+              <MappingFragment StoreEntitySet="RepositoryPermissions">
+                <ScalarProperty Name="Repository_Name" ColumnName="Repository Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserFilesPermissions">
+            <EntityTypeMapping TypeName="FileManagementModel.UserFilesPermissions">
+              <MappingFragment StoreEntitySet="UserFilesPermissions">
+                <ScalarProperty Name="File_Category_ID" ColumnName="File Category ID" />
+                <ScalarProperty Name="User_ID" ColumnName="User ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsersModules">
+            <EntityTypeMapping TypeName="FileManagementModel.UsersModules">
+              <MappingFragment StoreEntitySet="UsersModules">
+                <ScalarProperty Name="Permission_ID" ColumnName="Permission ID" />
+                <ScalarProperty Name="User_ID" ColumnName="User ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsersRepositoryPermissions">
+            <EntityTypeMapping TypeName="FileManagementModel.UsersRepositoryPermissions">
+              <MappingFragment StoreEntitySet="UsersRepositoryPermissions">
+                <ScalarProperty Name="Repository_ID" ColumnName="Repository ID" />
+                <ScalarProperty Name="User_ID" ColumnName="User ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

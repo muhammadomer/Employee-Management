@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BusinessCardModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Modules">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="UsersModules">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User ID" Type="int" />
+          <Property Name="Module ID" Type="int" />
+        </EntityType>
+        <Association Name="FK_UsersModules_Modules">
+          <End Role="Modules" Type="Self.Modules" Multiplicity="0..1" />
+          <End Role="UsersModules" Type="Self.UsersModules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modules">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UsersModules">
+              <PropertyRef Name="Module ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BusinessCardModelStoreContainer">
+          <EntitySet Name="Modules" EntityType="Self.Modules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsersModules" EntityType="Self.UsersModules" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_UsersModules_Modules" Association="Self.FK_UsersModules_Modules">
+            <End Role="Modules" EntitySet="Modules" />
+            <End Role="UsersModules" EntitySet="UsersModules" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BusinessCardModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Modules">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UsersModules" Relationship="Self.FK_UsersModules_Modules" FromRole="Modules" ToRole="UsersModules" />
+        </EntityType>
+        <EntityType Name="UsersModules">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_ID" Type="Int32" />
+          <Property Name="Module_ID" Type="Int32" />
+          <NavigationProperty Name="Modules" Relationship="Self.FK_UsersModules_Modules" FromRole="UsersModules" ToRole="Modules" />
+        </EntityType>
+        <Association Name="FK_UsersModules_Modules">
+          <End Role="Modules" Type="Self.Modules" Multiplicity="0..1" />
+          <End Role="UsersModules" Type="Self.UsersModules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modules">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UsersModules">
+              <PropertyRef Name="Module_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BusinessCardEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Modules" EntityType="Self.Modules" />
+          <EntitySet Name="UsersModules" EntityType="Self.UsersModules" />
+          <AssociationSet Name="FK_UsersModules_Modules" Association="Self.FK_UsersModules_Modules">
+            <End Role="Modules" EntitySet="Modules" />
+            <End Role="UsersModules" EntitySet="UsersModules" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BusinessCardModelStoreContainer" CdmEntityContainer="BusinessCardEntities">
+          <EntitySetMapping Name="Modules">
+            <EntityTypeMapping TypeName="BusinessCardModel.Modules">
+              <MappingFragment StoreEntitySet="Modules">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsersModules">
+            <EntityTypeMapping TypeName="BusinessCardModel.UsersModules">
+              <MappingFragment StoreEntitySet="UsersModules">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="User_ID" ColumnName="User ID" />
+                <ScalarProperty Name="Module_ID" ColumnName="Module ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

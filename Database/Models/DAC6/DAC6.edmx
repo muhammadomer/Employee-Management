@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DAC6Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DAC6Modules">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="DAC6UsersModules">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User ID" Type="int" />
+          <Property Name="Module ID" Type="int" />
+        </EntityType>
+        <EntityType Name="LevelPermission">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Permission" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Visible" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserLevelPermission">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="LevelPermissionId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_UserLevelPermission_LevelPermission">
+          <End Role="LevelPermission" Type="Self.LevelPermission" Multiplicity="1" />
+          <End Role="UserLevelPermission" Type="Self.UserLevelPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LevelPermission">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserLevelPermission">
+              <PropertyRef Name="LevelPermissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersModules_Modules">
+          <End Role="DAC6Modules" Type="Self.DAC6Modules" Multiplicity="0..1" />
+          <End Role="DAC6UsersModules" Type="Self.DAC6UsersModules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DAC6Modules">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DAC6UsersModules">
+              <PropertyRef Name="Module ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="ChangeHashCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OldKey" Type="nvarchar" Mode="In" />
+          <Parameter Name="NewKey" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="DAC6ModelStoreContainer">
+          <EntitySet Name="DAC6Modules" EntityType="Self.DAC6Modules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DAC6UsersModules" EntityType="Self.DAC6UsersModules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LevelPermission" EntityType="Self.LevelPermission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserLevelPermission" EntityType="Self.UserLevelPermission" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_UserLevelPermission_LevelPermission" Association="Self.FK_UserLevelPermission_LevelPermission">
+            <End Role="LevelPermission" EntitySet="LevelPermission" />
+            <End Role="UserLevelPermission" EntitySet="UserLevelPermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersModules_Modules" Association="Self.FK_UsersModules_Modules">
+            <End Role="DAC6Modules" EntitySet="DAC6Modules" />
+            <End Role="DAC6UsersModules" EntitySet="DAC6UsersModules" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DAC6Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DAC6Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DAC6Modules" EntityType="DAC6Model.DAC6Modules" />
+          <EntitySet Name="DAC6UsersModules" EntityType="DAC6Model.DAC6UsersModules" />
+          <AssociationSet Name="FK_UsersModules_Modules" Association="DAC6Model.FK_UsersModules_Modules">
+            <End Role="DAC6Modules" EntitySet="DAC6Modules" />
+            <End Role="DAC6UsersModules" EntitySet="DAC6UsersModules" />
+          </AssociationSet>
+          <EntitySet Name="LevelPermission" EntityType="DAC6Model.LevelPermission" />
+          <EntitySet Name="UserLevelPermission" EntityType="DAC6Model.UserLevelPermission" />
+          <AssociationSet Name="FK_UserLevelPermission_LevelPermission" Association="DAC6Model.FK_UserLevelPermission_LevelPermission">
+            <End Role="LevelPermission" EntitySet="LevelPermission" />
+            <End Role="UserLevelPermission" EntitySet="UserLevelPermission" />
+          </AssociationSet>
+          <FunctionImport Name="ChangeHashCode">
+            <Parameter Name="OldKey" Mode="In" Type="String" />
+            <Parameter Name="NewKey" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="DAC6Modules">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DAC6UsersModules" Relationship="DAC6Model.FK_UsersModules_Modules" FromRole="DAC6Modules" ToRole="DAC6UsersModules" />
+        </EntityType>
+        <EntityType Name="DAC6UsersModules">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_ID" Type="Int32" />
+          <Property Name="Module_ID" Type="Int32" />
+          <NavigationProperty Name="DAC6Modules" Relationship="DAC6Model.FK_UsersModules_Modules" FromRole="DAC6UsersModules" ToRole="DAC6Modules" />
+        </EntityType>
+        <Association Name="FK_UsersModules_Modules">
+          <End Type="DAC6Model.DAC6Modules" Role="DAC6Modules" Multiplicity="0..1" />
+          <End Type="DAC6Model.DAC6UsersModules" Role="DAC6UsersModules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DAC6Modules">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DAC6UsersModules">
+              <PropertyRef Name="Module_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LevelPermission">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Permission" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Visible" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="UserLevelPermission" Relationship="DAC6Model.FK_UserLevelPermission_LevelPermission" FromRole="LevelPermission" ToRole="UserLevelPermission" />
+        </EntityType>
+        <EntityType Name="UserLevelPermission">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="LevelPermissionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="LevelPermission" Relationship="DAC6Model.FK_UserLevelPermission_LevelPermission" FromRole="UserLevelPermission" ToRole="LevelPermission" />
+        </EntityType>
+        <Association Name="FK_UserLevelPermission_LevelPermission">
+          <End Type="DAC6Model.LevelPermission" Role="LevelPermission" Multiplicity="1" />
+          <End Type="DAC6Model.UserLevelPermission" Role="UserLevelPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LevelPermission">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserLevelPermission">
+              <PropertyRef Name="LevelPermissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DAC6ModelStoreContainer" CdmEntityContainer="DAC6Entities">
+          <EntitySetMapping Name="DAC6Modules">
+            <EntityTypeMapping TypeName="DAC6Model.DAC6Modules">
+              <MappingFragment StoreEntitySet="DAC6Modules">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DAC6UsersModules">
+            <EntityTypeMapping TypeName="DAC6Model.DAC6UsersModules">
+              <MappingFragment StoreEntitySet="DAC6UsersModules">
+                <ScalarProperty Name="Module_ID" ColumnName="Module ID" />
+                <ScalarProperty Name="User_ID" ColumnName="User ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LevelPermission">
+            <EntityTypeMapping TypeName="DAC6Model.LevelPermission">
+              <MappingFragment StoreEntitySet="LevelPermission">
+                <ScalarProperty Name="Visible" ColumnName="Visible" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Permission" ColumnName="Permission" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserLevelPermission">
+            <EntityTypeMapping TypeName="DAC6Model.UserLevelPermission">
+              <MappingFragment StoreEntitySet="UserLevelPermission">
+                <ScalarProperty Name="LevelPermissionId" ColumnName="LevelPermissionId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ChangeHashCode" FunctionName="DAC6Model.Store.ChangeHashCode" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

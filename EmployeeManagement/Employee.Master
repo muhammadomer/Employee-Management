@@ -1,0 +1,778 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Employee.master.cs" Inherits="EmployeeManagement.Employee" %>
+
+<!DOCTYPE html>
+
+
+<html>
+<head runat="server">
+
+    <meta charset="utf-8" />
+    <title><% if (Convert.ToInt32(ConfigurationManager.AppSettings["OtherApplication"]) == 0)
+               {  %>
+        Employee Management 
+        <% }
+    else
+    { %>
+        MITIGATE PRO
+                <% }%></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="Preview page of Metronic Admin Theme #3 for " name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+    <link href="assets/global/plugins/font-awesome/css/font-awesome.min.css?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" rel="stylesheet" type="text/css" />
+    <link href="assets/global/plugins/simple-line-icons/simple-line-icons.min.css?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" rel="stylesheet" type="text/css" />
+    <link href="assets/global/plugins/bootstrap/css/bootstrap.min.css?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" rel="stylesheet" type="text/css" />
+    <link href="assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" rel="stylesheet" type="text/css" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <link href="assets/global/plugins/icheck/skins/all.css?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap-multiselect.css?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" rel="stylesheet" />
+    <link href="css/toastr.min.css?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" rel="stylesheet" />
+    <link href="css/jquery.dataTables.min.css?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" rel="stylesheet" />
+    <link href="css/typeahead.css?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" rel="stylesheet" />
+    <%--<link href="assets/global/plugins/bootstrap-multiselect/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css" />--%>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN THEME GLOBAL STYLES -->
+    <link href="assets/global/css/components.min.css?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" rel="stylesheet" id="style_components" type="text/css" />
+    <link href="assets/global/css/plugins.min.css?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" rel="stylesheet" type="text/css" />
+    <!-- END THEME GLOBAL STYLES -->
+    <!-- BEGIN THEME LAYOUT STYLES -->
+    <link href="assets/layouts/layout3/css/layout.min.css?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" rel="stylesheet" type="text/css" />
+    <link href="assets/layouts/layout3/css/themes/default.min.css?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" rel="stylesheet" type="text/css" id="style_color" />
+    <link href="assets/layouts/layout3/css/custom.min.css?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" rel="stylesheet" type="text/css" />
+    <script src="Scripts/jquery.min.js?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" type="text/javascript"></script>
+    <!--[if lt IE 9]-->
+    <script src="assets/global/plugins/respond.min.js?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>"></script>
+    <script src="assets/global/plugins/excanvas.min.js?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>"></script>
+    <script src="assets/global/plugins/ie8.fix.min.js?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>"></script>
+    <!--[endif]-->
+    <!-- BEGIN CORE PLUGINS -->
+
+    <script src="Scripts/jquery.validate.js?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>"></script>
+    <script src="Scripts/jquery.validate.unobtrusive.js?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>"></script>
+    <script src="Scripts/qrcode.js?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>"></script>
+    <script src="Scripts/bootstrap.min.js?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" type="text/javascript"></script>
+    <script src="assets/global/plugins/js.cookie.min.js?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" type="text/javascript"></script>
+    <script src="assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" type="text/javascript"></script>
+    <script src="assets/global/plugins/jquery.blockui.min.js?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" type="text/javascript"></script>
+    <script src="assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" type="text/javascript"></script>
+
+    <!-- END CORE PLUGINS -->
+    <!-- BEGIN THEME GLOBAL SCRIPTS -->
+    <script src="assets/global/scripts/app.min.js?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" type="text/javascript"></script>
+    <!-- END THEME GLOBAL SCRIPTS -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script src="assets/global/plugins/icheck/icheck.min.js?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" type="text/javascript"></script>
+    <script src="assets/pages/scripts/form-icheck.min.js?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" type="text/javascript"></script>
+    <script src="Scripts/toastr.min.js?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>"></script>
+    <script src="Scripts/jquery.dataTables.min.js?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>"></script>
+    <%--<script src="assets/pages/scripts/components-bootstrap-multiselect.min.js?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" type="text/javascript"></script>--%>
+    <script src="Scripts/bootstrap-multiselect.js?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>"></script>
+    <script src="Scripts/pwstrength-bootstrap.js?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>"></script>
+    <script src="Scripts/typeahead.bundle.min.js?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN THEME LAYOUT SCRIPTS -->
+    <script src="assets/layouts/layout3/scripts/layout.min.js?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" type="text/javascript"></script>
+    <script src="assets/layouts/layout3/scripts/demo.min.js?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" type="text/javascript"></script>
+    <script src="assets/layouts/global/scripts/quick-sidebar.min.js?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" type="text/javascript"></script>
+    <script src="assets/layouts/global/scripts/quick-nav.min.js?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" type="text/javascript"></script>
+    <!-- END THEME LAYOUT SCRIPTS -->
+    <script src="ApplicationScripts/security-PasswordValidations.js?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>"></script>
+    <script src="ApplicationScripts/AjaxCommonMethods.js?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>"></script>
+    <!-- END THEME LAYOUT STYLES -->
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+
+    <!--------------DANISH------------>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.7.7/xlsx.core.min.js"></script>
+
+    <!-------------------------------->
+
+    <link href="css/custom.css?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" rel="stylesheet" />
+     <% if (Convert.ToInt32(ConfigurationManager.AppSettings["OtherApplication"]) == 1)
+        {  %>
+
+    <link href="css/otherApp.css?v=<%=ConfigurationManager.AppSettings["VersionNumber"]%>" rel="stylesheet" />
+
+    <% } %>
+
+    <style>
+        hr {
+            border-top: 1px solid #000;
+        }
+
+        .required {
+            color: red;
+        }
+
+       
+        /*Data table Css*/
+        .dataTables_filter input {
+            width: 150px;
+            height: 26px;
+            padding: 6px 10px;
+            background-color: #fff;
+            border: 1px solid #c2cad8;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        }
+
+        .dataTables_filter label {
+            font-size: 13px;
+            margin-top: 10px;
+            margin-bottom: 0px;
+        }
+
+        .dataTables_length select {
+            width: 70px;
+            height: 34px;
+            padding: 6px 12px;
+            background-color: #fff;
+            border: 1px solid #c2cad8;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        }
+
+        .dataTables_length {
+            padding-bottom: 17px;
+        }
+
+        .sorting, .sorting_asc, .sorting_desc {
+            padding-left: 11px !important;
+        }
+
+        .table > thead:first-child > tr:first-child > th {
+            background-color: #6E2D91;
+            color: white;
+            font-size: 17px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        .table > thead:first-child > tr:nth-child(2) > th {
+            background-color: #E4E4E4;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            padding: 0px;
+        }
+
+        .paginate_button, .dataTables_paginate > .disabled {
+            background-color: #969696;
+            color: white !important;
+            border-radius: 4px !important;
+        }
+
+        table {
+            border: 1px solid #C0C0C0;
+            border-radius: 10px;
+        }
+
+        tr {
+            border-top: 1px solid #C0C0C0;
+        }
+
+            tr + tr {
+                border-top: 1px solid transparent;
+            }
+
+        td {
+            border-left: 1px solid #C0C0C0;
+        }
+
+        tr:last-child td {
+            border-bottom: 1px solid #C0C0C0;
+        }
+
+        td {
+            border-left: 1px solid transparent;
+        }
+
+        .even td, .even .sorting_1 {
+            background-color: #F1F1F1;
+            font-size: 13px;
+        }
+
+        .odd td, .odd .sorting_1 {
+            font-size: 13px;
+        }
+
+        tr td {
+            font-size: 13px !important;
+        }
+
+        .dataTables_paginate a {
+            font-size: 13px;
+        }
+        /*End Css data table*/
+
+
+
+        .navbar-default {
+            background-color: #f1f1f1;
+            border-color: #f1f1f1;
+        }
+
+            .navbar-default .navbar-nav > li > a {
+                color: #6E2D91;
+            }
+
+                .navbar-default .navbar-nav > li > a:hover {
+                    color: #6E2D91;
+                    background-color: transparent;
+                }
+
+                 .navbar-default .navbar-nav > li > a:focus {
+                    color: #6E2D91;
+                    background-color: transparent;
+                }
+
+            .navbar-default .navbar-nav > .active > a,
+            .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
+                color: #6E2D91;
+                background-color: transparent;
+                font-weight: bold;
+            }
+
+        .customIcon {
+            padding: 3px 5px;
+            color: white;
+            background-color: #6E2D91;
+            margin: 1px;
+            border-radius: 3px;
+        }
+
+        .disabledCustomIcon {
+            padding: 3px 5px;
+            color: white;
+            background-color: #6e2d91;
+            margin: 1px;
+            border-radius: 3px;
+            opacity: 0.5;
+            cursor: no-drop;
+        }
+
+        .fa-angle-double-left, .fa-angle-double-right {
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+
+        .logout {
+            background-color: #E4E4E4 !important;
+            padding: 5px 15px 5px 15px !important;
+            margin-top: 9px;
+            margin-bottom: 9px;
+            font-weight: 600;
+            border-radius: 5px !important;
+            border: solid 1px #E4E4E4 !important;
+        }
+
+        .userPic {
+            color: white !important;
+            background-color: #6E2D91;
+            font-size: 17px;
+            padding: 7px !important;
+            border-radius: 30px !important;
+            margin-top: 9px;
+            margin-right: 5px;
+        }
+
+            .userPic:hover {
+                color: white !important;
+                background-color: #6E2D91;
+                font-size: 17px;
+                padding: 7px !important;
+                border-radius: 30px !important;
+                margin-top: 9px;
+                margin-right: 5px;
+            }
+
+        .control-label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            font-size: 12px;
+        }
+
+        .pageHeading {
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
+        .table {
+            border-top: 0px;
+        }
+
+        .progress {
+            margin-bottom: 0px !important;
+        }
+
+        .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-danger {
+            background-color: #6E2D91;
+        }
+
+        .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-default {
+            color: #fff;
+            background-color: #6E2D91;
+        }
+    </style>
+</head>
+<body>
+    <form runat="server">
+
+        <asp:HiddenField ID="forgeryToken" runat="server"/>
+        <div id="AFDiv" runat="server"></div>
+
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <%--<a class="navbar-brand" href="#">WebSiteName</a>--%>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar" style="padding: 0px 15px 0px 0px;">
+                    <ul class="nav navbar-nav" style="margin-left: -15px;">
+                        <li id="users" runat="server"><a href="Employees.aspx">Employee Profiles</a></li>
+                        <li id="offices" runat="server"><a href="Offices.aspx">Offices</a></li>
+                        <li id="settings" runat="server"><a href="SystemSettings.aspx">Settings</a></li>
+                        <li id="license" runat="server"><a href="Licensing.aspx">License</a></li>
+                        <li id="applications" runat="server"><a href="Applications.aspx">Applications</a></li>
+                        <%--<li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Page 1-1</a></li>
+                                <li><a href="#">Page 1-2</a></li>
+                                <li><a href="#">Page 1-3</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Page 2</a></li>
+                        <li><a href="#">Page 3</a></li>--%>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <%--<li><a href="#"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>--%>
+                        <li class="dropdown" id="userPic">
+                            <a class="dropdown-toggle" style="padding: 4px;" data-toggle="dropdown" href="#">
+                                <%--<i class="fa fa-user"></i>--%>
+                                <img id="menuProfileImage" src="" style="width: 40px; border-radius: 20px !important;" />
+                            </a>
+                            <ul class="dropdown-menu" style="left: 0px">
+                                <li><a data-toggle='modal' href='#ModalChangePassword'>Change Password</a></li>
+                                <li>
+                                    <a href='#' runat="server" id="btnEnableAuthentication">Enable Authenticator</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="#" class="userName" id="userName" style="cursor: default;"><%= userName %></a></li>
+                        <li id="logout"><a href="#" class="logout">Logout</a></li>
+                        <li><a title="Contact Support" href="mailto:<%= supportEmails %>?subject=Single%20Point%20-%20Support%20Request&body=Support%0D%0A%0D%0AI%20am%20currently%20using%20the%20Single%20Point%20Administration%20and%20need%20assistance%20with%20the%20following%3A%0D%0A%0D%0A%5BPlease%20provide%20a%20detailed%20description%20here%5D%0D%0A%0D%0AThank%20you" class="logout" style="margin-left:15px;padding-left: 8px !important;padding-right: 8px !important;"><i class="fa fa-envelope"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- BEGIN CONTAINER -->
+        <div class="container-fluid">
+            <!-- BEGIN CONTENT -->
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <!-- END CONTENT -->
+        </div>
+        <!-- END CONTAINER -->
+        <div class="modal fade" id="main_confirmation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+                    </div>
+                    <input type="hidden" id="deleteID" />
+                    <input type="hidden" id="deleteURL" />
+                    <div class="modal-body">
+                        <p style="margin: 0px;">Are you sure you want to Delete?</p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <a class="btn purple btn-confirmation" data-dismiss="modal">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="ModalChangePassword" data-backdrop="static" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog" id="PasswordPopup">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title">Change Password</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">Enter Old Password</label><span class="required">*</span>
+                                    <input type="password" id="oldPassword" class="form-control spinner" placeholder="Enter Old Password">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top: 10px;">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">Enter New Password</label><span class="required">*</span>
+                                    <input type="password" id="newPassword" class="form-control spinner" placeholder="Enter New Password">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top: 10px;">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">Confirm New Password</label><span class="required">*</span>
+                                    <input type="password" id="confirmNewPassword" class="form-control spinner" placeholder="Confirm New Password">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <a class="btn purple" id="btnChangePassword">Change Password</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="EableAuthenticator" data-backdrop="static" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="border-bottom: 1px solid #e5e5e5;">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title">Two-Factor Authentication</h4>
+                    </div>
+                    <div class="modal-body" style="padding-top: 0px;">
+                        <div class="row" style="border-bottom: 1px solid #e5e5e5;">
+                            <div class="col-md-2">
+                                <img src="images/SampleImageForQRCodeScanner.png" />
+                            </div>
+                            <div class="col-md-10">
+                                <h3 style="font-size: 18px; font-weight: 400; margin-bottom: 0; margin-top: 15px;">Set up via Third Party Authenticator
+                                </h3>
+                                <p style="margin-top: 10px;font-size: 13px;">Please use your authentication app (such as Microsoft Authenticator, Free OTP or Google Authenticator) to scan this QR code.</p>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:25px;">
+                            <div class="col-md-6">
+                                <div id="qrcode" style="width: 200px; margin: auto;"></div>
+                            </div>
+                            <div class="col-md-5">
+                                <p style="text-align:center;">Or enter this code into your authentication app</p>
+                                <h5 id="sharedKey" style="text-align: center;text-transform: uppercase;font-weight: bold;"></h5>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:25px;">
+                            <div class="col-md-12">
+                                <input id="SecretKey" name="SecretKey" type="hidden" value="">
+                                <input id="BarcodeUrl" name="BarcodeUrl" type="hidden" value="">
+                                <div class="form-group">
+                                    <label class="control-label">Please enter the confirmation code you see on your authentication app</label>
+                                    <input autocomplete="off" class="form-control" id="txtCode" name="Code" type="text" value="">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a id="btnVerifyCode" style="margin-top: 10px;" class="btn purple">Verify</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="ajaxLoader" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <img src="images/ajax-loader.gif" alt="" class="loading" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                setHeartbeat();
+                var options = {};
+                options.common = {
+                    minChar: 8
+                };
+                options.rules = {
+                    activated: {
+                        wordTwoCharacterClasses: true,
+                        wordRepetitions: true,
+                        wordUppercase: true,
+                    },
+                    scores: { wordUppercase: 5 }
+                }
+                options.ui = {
+                    //showErrors: true,
+                    //showStatus: true
+                };
+                $('#newPassword').pwstrength(options);
+                $("#btnChangePassword").on("click", function () {
+                    var oldPassword = $("#oldPassword").val();
+                    var newPassword = $("#newPassword").val();
+                    var confirmNewPassword = $("#confirmNewPassword").val();
+                    var passwordValidation = validateUserPasswordWithConfirmPassword(newPassword, confirmNewPassword, 'NULL');
+                    if (oldPassword == '') {
+                        toastr.error("Please provide Old Password");
+                        return false;
+                    }
+                    else if (newPassword == '') {
+                        toastr.error("Please provide New Password");
+                        return false;
+                    }
+                    else if (confirmNewPassword == '') {
+                        toastr.error("Please provide Confirm Password");
+                        return false;
+                    }
+                    else if (newPassword != confirmNewPassword) {
+                        toastr.error("New and Old Password should be same");
+                        return false;
+                    }
+                    else if (passwordValidation != 'true') {
+                        toastr.error(passwordValidation);
+                        return false;
+                    }
+                    var changePasswordURL = "Login.aspx/ChangePassword";
+                    var requestPerameters = {
+                        "oldPassword": oldPassword,
+                        "newPassword": newPassword,
+                        "confirmNewPassword": confirmNewPassword
+                    };
+                    AjaxPostRequestWithRequestPerameters(changePasswordURL, requestPerameters, function (response) {
+                        if (response == "Password changed sucessfully") {
+                            toastr.success(response);
+                            $("#ModalChangePassword").modal("hide");
+                        }
+                        else {
+                            toastr.error(response);
+                        }
+                    });
+                });
+                $("#logout").on("click", function () {
+                    var url = 'Applications.aspx/LogOut';
+                    AjaxPostRequestWithoutRequestPerameters(url, function (response) {
+                        
+                        if (response != null) {
+                            window.location.href = response;
+                        }
+                        else {
+                            window.location.href = "Login.aspx";
+                        }
+                    });
+                });
+                $('#ModalChangePassword').on('hidden.bs.modal', function () {
+                    $("#oldPassword").val('');
+                    $("#newPassword").val('');
+                    $("#confirmNewPassword").val('');
+                });
+                $("#btnEnableAuthentication").on("click", function () {
+                    $("#ajaxLoader").modal("show");
+                    if ($("#btnEnableAuthentication").text().trim() == "Disable Authenticator") {
+                        var url = 'ManageAccount.aspx/DisableGoogleAuthenticator';
+                        AjaxPostRequestWithoutRequestPerameters(url, function (response) {
+                            if (response) {
+                                $("#ajaxLoader").modal("hide");
+                                $("#btnEnableAuthentication").text("Enable Authenticator");
+                                toastr.success("2FA Disabled successfully");
+                            }
+                            else {
+                                $("#ajaxLoader").modal("hide");
+                                toastr.error("Unable to Disable 2FA");
+                            }
+                        });
+                    }
+                    else {
+                        var url = 'ManageAccount.aspx/EnableGoogleAuthenticator';
+                        AjaxPostRequestWithoutRequestPerameters(url, function (response) {
+                            if (response != null) {
+                                if (response[0] != '2') {
+                                    
+                                    $("#SecretKey").val(response[0]);
+                                    $("#BarcodeUrl").val(response[1]);
+                                    $("#sharedKey").text(response[2]);
+                                    $("#qrcode").empty();
+                                    var qrcode = new QRCode("qrcode", {
+                                        text: response[1],
+                                        width: 180,
+                                        height: 180,
+                                        colorDark: "#000",
+                                        colorLight: "#ffffff",
+                                        correctLevel: QRCode.CorrectLevel.H
+                                    });
+                                    $("#Code").focus();
+                                    $("#ajaxLoader").modal("hide");
+                                    $("#EableAuthenticator").modal("show");
+                                }
+                                else {
+                                    $("#ajaxLoader").modal("hide");
+                                    toastr.error("2FA is already enabled");
+                                }
+                            }
+                        });
+                    }
+                });
+                $("#btnVerifyCode").on("click", function () {
+                    var secretKey = $("#SecretKey").val();
+                    var code = $("#txtCode").val();
+                    if (code == "") {
+                        toastr.error("Please Provide Verification Code");
+                        return false;
+                    }
+                    $("#ajaxLoader").modal("show");
+                    var url = 'ManageAccount.aspx/EnableGoogleAuthenticatorWithVerificationCode';
+                    var requestPerameters = {
+                        "Code": code,
+                        "SecretKey": secretKey
+                    };
+                    AjaxPostRequestWithRequestPerameters(url, requestPerameters, function (response) {
+                        if (response != null) {
+                            $("#qrcode").empty();
+                            $("#txtCode").val('');
+                            $("#ajaxLoader").modal("hide");
+                            $('#EableAuthenticator').modal('hide');
+                            toastr.success("2FA enabled successfully. ");
+                            $('#btnEnableAuthentication').text("Disable Authenticator");
+                        }
+                        else {
+                            $("#ajaxLoader").modal("hide");
+                            toastr.error("Invalid 2FA Code ");
+                        }
+                    });
+                });
+                GetProfileImage();
+            });
+            ValidateEmail = function (email) {
+                var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(email);
+            }
+            ValidateLongLat = function (longLat) {
+                var re = /^-?([0-8]?[0-9]|90)\.[0-9]{1,6}$/;
+                return re.test(longLat);
+            }
+            ValidateNumber = function (number) {
+                if (number != '') {
+                    var testPattern = new RegExp("^\\+[0-9 ]+$");
+                    var result = testPattern.test(number);
+                    return result;
+                }
+            }
+            ShowConfirmationDialog = function (title, message, success, cancel, confirmationBtnText) {
+                $(".btn-confirmation").html(confirmationBtnText);
+                title = title ? title : 'Are you sure?';
+                var modal = $("#main_confirmation");
+                modal.find('.modal-footer .btn-default').show();
+                modal.find(".modal-title").html(title).end()
+                    .find(".modal-body").html(message).end()
+                    .modal({ backdrop: 'static', keyboard: false })
+                    .on('hidden.bs.modal', function () {
+                        modal.unbind();
+                    });
+                if (success) {
+                    modal.one('click', '.modal-footer .btn-confirmation', success);
+                }
+                if (cancel) {
+                    modal.one('click', '.modal-header .close, .modal-footer .btn-default', cancel);
+                }
+            };
+            GetProfileImage = function () {
+                var url = 'Employees.aspx/GetProfileImage';
+                AjaxPostRequestWithoutRequestPerameters(url, function (response) {
+                    
+                    $("#menuProfileImage").attr("src", response);
+                });
+            }
+
+            makeTextBoxAutoComplete = function (colName, txtBox, autoFillColCheck) {
+                if (autoFillColCheck) {
+                    if (!isAutoCompleteColumn(colName)) {
+                        return false; // Do nothing if column is not in list of auto fill
+                    }
+                }
+                var columnName = { "ColName": colName };
+                var jsonDistinctData = "";
+
+                var token = $('[name=__RequestVerificationToken]').val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "Offices.aspx/GetDistinctColumnValues",
+                    headers: { '__RequestVerificationToken': token },
+                    data: JSON.stringify(columnName),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        jsonDistinctData = data.d;
+                        //alert(jsonDistinctData);
+                        var objectList = "";
+                        objectList = $.map(jsonDistinctData, function (string) { return { value: string }; });
+                        var distinctValuesList = new Bloodhound({
+                            datumTokenizer: function (d) { return Bloodhound.tokenizers.whitespace(d.value); },
+                            queryTokenizer: Bloodhound.tokenizers.whitespace,
+                            limit: 10,
+                            local: objectList
+                        });
+
+                        distinctValuesList.initialize();
+
+                        if (App.isRTL()) {
+                            $('#' + txtBox).attr("dir", "rtl");
+                        }
+                        var ddlAutoComplete = $('#' + txtBox).typeahead(null, {
+                            displayKey: 'value',
+                            hint: (App.isRTL() ? false : true),
+                            source: distinctValuesList.ttAdapter()
+                        });
+                        //alert("Data Recived " + data.d);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+
+                        if (xhr.getResponseHeader("X-Responded-JSON") != null
+                            && JSON.parse(xhr.getResponseHeader("X-Responded-JSON")).status == "401") {
+                            console.log("Error 401 found");
+                            window.location.href = "WarningPage.aspx";
+                            return;
+                        }
+
+                        console.log('Error In Ajax Call');
+                        console.log('Status: ' + textStatus);
+                        console.log('Error: ' + errorThrown);
+                    }
+                });
+
+            }
+
+            isAutoCompleteColumn = function (val) {
+                if (val == 'Nice Name') {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        </script>
+    </form>
+</body>
+</html>
